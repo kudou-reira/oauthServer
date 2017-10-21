@@ -28,23 +28,8 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
-// app.get('/', (req, res) => {
-// 	res.send({ hi: 'there'});
-// })
-
-// https://accounts.google.com/o/oauth2/v2/auth?response_type=code&redirect_uri=http%3A%2F%2Flocalhost%3A5000%2Fauth%2Fgoogle%2Fcallback&scope=profile%20email&client_id=392761899936-7pdlrteoqgr9coh9803ihjkh1upnqqbt.apps.googleusercontent.com
-
 require('./routes/authRoutes')(app);
 require('./routes/manageRoutes')(app);
-
-if(process.env.NODE_ENV === 'production'){
-	app.use(express.static('client/build'));
-
-	const path = require('path');
-	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
-	});
-}
 
 const PORT = process.env.PORT || 5000;
 app.listen(PORT);
